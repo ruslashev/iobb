@@ -9,16 +9,16 @@ void mainloop::init()
 {
 	const int winw = initial_winw, winh = initial_winh;
 
-	w.init(winw, winh, "iobb");
+	g->w.init(winw, winh, "iobb");
 
 	g->init();
 }
 
 void mainloop::poll_events()
 {
-	w.poll_events();
+	g->w.poll_events();
 
-	if (w.key_down(KEY_ESC))
+	if (g->w.key_down(KEY_ESC))
 		g->done = true;
 }
 
@@ -41,7 +41,7 @@ void mainloop::show_fps(float elapsed, uint64_t frames, float current)
 			(double)(1.f / elapsed),
 			(double)(elapsed * 1000.f));
 
-	w.set_title(title);
+	g->w.set_title(title);
 }
 
 mainloop::mainloop(game *_g)
@@ -57,14 +57,14 @@ void mainloop::run()
 	const float min_frametime = 1.f / max_fps;
 
 	float t = 0;
-	float previous = w.get_time();
+	float previous = g->w.get_time();
 	float accumulator = 0;
 	uint64_t frames = 0;
 
 	g->done = false;
 
 	while (!g->done) {
-		const float current = w.get_time();
+		const float current = g->w.get_time();
 		float elapsed = current - previous;
 
 		show_fps(elapsed, frames, current);
@@ -86,13 +86,13 @@ void mainloop::run()
 
 		draw(accumulator / dt);
 
-		g->done |= w.should_close();
+		g->done |= g->w.should_close();
 
 		frames++;
 
-		w.swap_window();
+		g->w.swap_window();
 
-		const float frametime = (float)w.get_time() - current;
+		const float frametime = (float)g->w.get_time() - current;
 
 		if (frametime < min_frametime) {
 			const uint64_t to_sleep = (min_frametime - frametime) * 1000.f * 1000.f * 1000.f;

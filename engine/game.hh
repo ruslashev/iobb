@@ -1,8 +1,11 @@
 #pragma once
 
+#include "wm/wm.hh"
+
 class game
 {
 public:
+	wm w;
 	bool done;
 
 	virtual void init() = 0;

@@ -5,7 +5,6 @@
 
 class mainloop
 {
-	wm w;
 	game *g;
 
 	void init();
