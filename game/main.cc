@@ -1,11 +1,12 @@
 #include <cstdio>
 #include "../engine/wm/wm.hh"
+#include "../engine/config.hh"
 
 int main()
 {
 	wm w;
 
-	w.init(1280, 760, "iobb");
+	w.init(initial_winw, initial_winh, "iobb");
 
 	while (!w.should_close()) {
 		w.poll_events();
