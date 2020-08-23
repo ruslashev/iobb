@@ -7,10 +7,6 @@
 
 void mainloop::init()
 {
-	const int winw = initial_winw, winh = initial_winh;
-
-	g->w.init(winw, winh, "iobb");
-
 	g->init();
 }
 
