@@ -1,8 +1,94 @@
-#include <cstdio>
 #include "../wm.hh"
 
-void hi()
+static void center_window(GLFWwindow *window, int w, int h, GLFWmonitor *monitor)
 {
-	puts("ohai");
+	const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+	if (!mode)
+		return;
+
+	glfwSetWindowPos(window, (mode->width - w) / 2, (mode->height - h) / 2);
+}
+
+wm::wm() : _window(nullptr)
+{
+}
+
+void wm::init(int w, int h, strlit title)
+{
+	die_if(!glfwInit());
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+
+	glfwWindowHint(GLFW_SAMPLES, 4);
+
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+	_window = glfwCreateWindow(w, h, title, nullptr, nullptr);
+	die_if(_window == nullptr);
+
+	center_window(_window, w, h, glfwGetPrimaryMonitor());
+
+	glfwMakeContextCurrent(_window);
+
+	glfwSwapInterval(0);
+}
+
+bool wm::should_close()
+{
+	return glfwWindowShouldClose(_window);
+}
+
+void wm::poll_events()
+{
+	glfwPollEvents();
+}
+
+void wm::swap_window()
+{
+	glfwSwapBuffers(_window);
+}
+
+bool wm::key_down(key k)
+{
+	return glfwGetKey(_window, k) == GLFW_PRESS;
+}
+
+bool wm::mouse_key_down(mouse_key mk)
+{
+	return glfwGetMouseButton(_window, mk) == GLFW_PRESS;
+}
+
+bool wm::mouse_key_up(mouse_key mk)
+{
+	return glfwGetMouseButton(_window, mk) == GLFW_RELEASE;
+}
+
+void wm::get_mouse_pos(float *x, float *y)
+{
+	double dx, dy;
+
+	glfwGetCursorPos(_window, &dx, &dy);
+
+	*x = (float)dx;
+	*y = (float)dy;
+}
+
+double wm::get_time()
+{
+	return glfwGetTime();
+}
+
+void wm::set_title(const char *title)
+{
+	glfwSetWindowTitle(_window, title);
+}
+
+wm::~wm()
+{
+	glfwDestroyWindow(_window);
+	glfwTerminate();
 }
 
