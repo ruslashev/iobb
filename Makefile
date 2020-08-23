@@ -6,7 +6,7 @@ cxx = g++
 cflags = -g -std=c++17 \
          -Wall -Wextra -Wpedantic -Wformat=2 -Wdouble-promotion -Wvla \
          -Wnull-dereference -Wredundant-decls -Wdisabled-optimization \
-         -Wno-unused-parameter -Wno-unused-variable -Wno-padded
+         -Wno-variadic-macros -Wno-unused-parameter -Wno-unused-variable -Wno-padded
 lflags = $(shell pkg-config --libs glfw3 epoxy)
 bin = iobb
 builddir = build
