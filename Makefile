@@ -3,7 +3,7 @@ src = $(wildcard game/*.cc) \
       $(wildcard engine/wm/glfw/*.cc)
 
 cxx = g++
-cflags = -g -std=c++17 \
+cflags = -g -std=c++17 -fno-exceptions -fno-rtti \
          -Wall -Wextra -Wpedantic -Wformat=2 -Wdouble-promotion -Wvla \
          -Wnull-dereference -Wredundant-decls -Wdisabled-optimization \
          -Wno-variadic-macros -Wno-unused-parameter -Wno-unused-variable -Wno-padded
