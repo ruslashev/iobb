@@ -10,6 +10,8 @@ void mainloop::init()
 	const int winw = initial_winw, winh = initial_winh;
 
 	w.init(winw, winh, "iobb");
+
+	g->init();
 }
 
 void mainloop::poll_events()
@@ -22,10 +24,12 @@ void mainloop::poll_events()
 
 void mainloop::update(float t, float dt)
 {
+	g->update(t, dt);
 }
 
 void mainloop::draw(float alpha)
 {
+	g->draw(alpha);
 }
 
 void mainloop::show_fps(float elapsed, uint64_t frames, float current)
@@ -40,7 +44,8 @@ void mainloop::show_fps(float elapsed, uint64_t frames, float current)
 	w.set_title(title);
 }
 
-mainloop::mainloop()
+mainloop::mainloop(game *_g)
+	: g(_g)
 {
 }
 

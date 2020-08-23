@@ -1,10 +1,12 @@
 #pragma once
 
 #include "wm/wm.hh"
+#include "game.hh"
 
 class mainloop
 {
 	wm w;
+	game *g;
 
 	bool done;
 
@@ -15,7 +17,7 @@ class mainloop
 
 	void show_fps(float elapsed, uint64_t frames, float current);
 public:
-	mainloop();
+	mainloop(game *_g);
 	void run();
 };
 
