@@ -14,6 +14,12 @@ public:
 		w.init(winw, winh, "iobb");
 	}
 
+	void poll_events()
+	{
+		if (w.key_down(KEY_ESC))
+			done = true;
+	}
+
 	void update(float t, float dt)
 	{
 	}

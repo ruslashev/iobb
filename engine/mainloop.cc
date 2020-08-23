@@ -14,8 +14,7 @@ void mainloop::poll_events()
 {
 	g->w.poll_events();
 
-	if (g->w.key_down(KEY_ESC))
-		g->done = true;
+	g->poll_events();
 }
 
 void mainloop::update(float t, float dt)
