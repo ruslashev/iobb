@@ -19,7 +19,7 @@ void mainloop::poll_events()
 	w.poll_events();
 
 	if (w.key_down(KEY_ESC))
-		done = true;
+		g->done = true;
 }
 
 void mainloop::update(float t, float dt)
@@ -61,9 +61,9 @@ void mainloop::run()
 	float accumulator = 0;
 	uint64_t frames = 0;
 
-	done = false;
+	g->done = false;
 
-	while (!done) {
+	while (!g->done) {
 		const float current = w.get_time();
 		float elapsed = current - previous;
 
@@ -86,7 +86,7 @@ void mainloop::run()
 
 		draw(accumulator / dt);
 
-		done |= w.should_close();
+		g->done |= w.should_close();
 
 		frames++;
 

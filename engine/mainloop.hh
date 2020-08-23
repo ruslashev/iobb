@@ -8,8 +8,6 @@ class mainloop
 	wm w;
 	game *g;
 
-	bool done;
-
 	void init();
 	void poll_events();
 	void update(float t, float dt);
